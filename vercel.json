@@ -1,5 +1,0 @@
-{
-  "build": {
-    "functions": "npm run json-server"
-  }
-}
