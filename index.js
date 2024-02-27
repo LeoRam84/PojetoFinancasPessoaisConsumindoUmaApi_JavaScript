@@ -165,7 +165,7 @@ function createDeleteTransactionButton(id) {
   return deleteBtn // Muito importante retorna ele na função para funcionar !
 }
 
-// Código criado para rodar melhor na vercel:
+// Código criado para rodar melhor na vercel, com um refresh de página melhor:
 
 async function setup() {
   await renderTransactions();
@@ -182,6 +182,51 @@ async function renderTransactions() {
   document.querySelector('#transactions').innerHTML = ''; // Limpa o conteúdo antes de renderizar novamente
   transactions.forEach(renderTransaction);
   updateBalance();
+}
+
+/* Código criado para rodar melhor na vercel, com armazenamento temporário em cache para desafogar
+o servidor: */
+
+let cachedTransactions = []; // Array para armazenar temporariamente as transações em cache
+
+async function fetchTransactions() {
+  const response = await fetch('https://api-storage.vercel.app/transactions');
+  const transactions = await response.json();
+
+  // Atualiza o cache apenas se os dados forem diferentes
+  if (!arraysAreEqual(cachedTransactions, transactions)) {
+    cachedTransactions = transactions;
+  }
+
+  return cachedTransactions;
+}
+
+// Função para verificar se dois arrays são iguais
+function arraysAreEqual(array1, array2) {
+  if (array1.length !== array2.length) {
+    return false;
+  }
+  
+  for (let i = 0; i < array1.length; i++) {
+    if (JSON.stringify(array1[i]) !== JSON.stringify(array2[i])) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+// Função para renderizar as transações a partir do cache
+async function renderTransactionsFromCache() {
+  const transactions = await fetchTransactions();
+  document.querySelector('#transactions').innerHTML = ''; // Limpa o conteúdo antes de renderizar novamente
+  transactions.forEach(renderTransaction);
+  updateBalance();
+}
+
+// Função para iniciar a atualização automática usando o cache
+function startAutoRefreshWithCache() {
+  setInterval(renderTransactionsFromCache, 1000); // Renderiza as transações a cada 5 segundos
 }
 
 // Posso aprimorar tratando erros, fazer testes/verificações na hora de enviar o resultado do formulário (essa requisição), posso utilizar classes (ter uma classe transaction) !
