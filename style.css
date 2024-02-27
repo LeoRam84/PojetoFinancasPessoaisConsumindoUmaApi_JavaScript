@@ -113,6 +113,16 @@ button + button {
   background-color: #f64348;
 }
 
+.edit-btn:hover {
+  cursor: pointer;
+  filter: brightness(0.9);
+}
+
+.delete-btn:hover {
+  cursor: pointer;
+  filter: brightness(0.9);
+}
+
 @media screen and (max-width: 768px) {
   main {
     flex-direction: column;
