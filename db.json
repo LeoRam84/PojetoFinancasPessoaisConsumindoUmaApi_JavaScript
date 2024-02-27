@@ -1,0 +1,44 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "name": "Freela",
+      "amount": 1300
+    },
+    {
+      "name": "Salário",
+      "amount": 3200,
+      "id": 2
+    },
+    {
+      "name": "Pix de Marco",
+      "amount": 350,
+      "id": 3
+    },
+    {
+      "name": "Venda de uma mobília",
+      "amount": 800,
+      "id": 4
+    },
+    {
+      "name": "Conta de água",
+      "amount": -160,
+      "id": 5
+    },
+    {
+      "name": "Conta de gás",
+      "amount": -400,
+      "id": 6
+    },
+    {
+      "name": "IPTU",
+      "amount": -1000,
+      "id": 7
+    },
+    {
+      "name": "Conta de luz",
+      "amount": -150,
+      "id": 8
+    }
+  ]
+}

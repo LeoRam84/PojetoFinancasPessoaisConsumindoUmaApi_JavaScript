@@ -165,4 +165,23 @@ function createDeleteTransactionButton(id) {
   return deleteBtn // Muito importante retorna ele na função para funcionar !
 }
 
+// Código criado para rodar melhor na vercel:
+
+async function setup() {
+  await renderTransactions();
+  startAutoRefresh(); // Inicia a atualização automática
+}
+
+function startAutoRefresh() {
+  setInterval(renderTransactions, 5000); // Renderiza as transações a cada 5 segundos
+}
+
+async function renderTransactions() {
+  const results = await fetchTransactions();
+  transactions = results;
+  document.querySelector('#transactions').innerHTML = ''; // Limpa o conteúdo antes de renderizar novamente
+  transactions.forEach(renderTransaction);
+  updateBalance();
+}
+
 // Posso aprimorar tratando erros, fazer testes/verificações na hora de enviar o resultado do formulário (essa requisição), posso utilizar classes (ter uma classe transaction) !
