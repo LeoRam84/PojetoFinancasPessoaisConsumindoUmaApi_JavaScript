@@ -130,8 +130,8 @@ async function saveTransaction(ev) {
     document.querySelector(`#transaction-${id}`).remove() // removendo o container pelo id !
     renderTransaction(transaction)
 
-    // Limpar o ID no backend
-    await clearTransactionId(id);
+    // Limpar o ID de edição após uma edição bem-sucedida
+    id = null;
 
   } else {
     // Quando não tiver o id, ele vai criar uma nova transação
