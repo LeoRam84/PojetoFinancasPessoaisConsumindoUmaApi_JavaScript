@@ -103,14 +103,19 @@ function createEditTransactionBtn(transaction) {
     document.querySelector('#name').value = transaction.name
     document.querySelector('#amount').value = transaction.amount
 
-    // Remova os event listeners existentes no formulário antes de adicionar um novo
-    document.querySelector('form').removeEventListener('submit', saveTransaction);
-
-    // Adicione um novo event listener para atualizar a transação após a edição
-    document.querySelector('form').addEventListener('submit', async (ev) => {
-      await saveTransaction(ev);
-      document.querySelector('form').addEventListener('submit', saveTransaction);
+    // Adiciona um evento de clique ao botão de salvar
+    const saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Salvar';
+    saveBtn.addEventListener('click', async () => {
+      await saveTransaction(event); // Chama a função de salvar transação
+      document.querySelector('#id').value = ''; // Limpa os campos após salvar
+      document.querySelector('#name').value = '';
+      document.querySelector('#amount').value = '';
+      editBtn.parentElement.removeChild(saveBtn); // Remove o botão de salvar
     });
+    
+    // Adiciona o botão de salvar ao mesmo container do botão de editar
+    editBtn.parentElement.appendChild(saveBtn);
   });
   return editBtn
 }
