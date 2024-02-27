@@ -102,6 +102,10 @@ function createEditTransactionBtn(transaction) {
     document.querySelector('#id').value = transaction.id
     document.querySelector('#name').value = transaction.name
     document.querySelector('#amount').value = transaction.amount
+    // Limpar os campos após editar
+    document.querySelector('#id').value = ''
+    document.querySelector('#name').value = ''
+    document.querySelector('#amount').value = ''
   })
   return editBtn
 }
