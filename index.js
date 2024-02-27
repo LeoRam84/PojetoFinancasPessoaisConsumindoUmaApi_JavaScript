@@ -102,21 +102,7 @@ function createEditTransactionBtn(transaction) {
     document.querySelector('#id').value = transaction.id
     document.querySelector('#name').value = transaction.name
     document.querySelector('#amount').value = transaction.amount
-
-    // Adiciona um evento de clique ao botão de salvar
-    const saveBtn = document.createElement('button');
-    saveBtn.textContent = 'Salvar';
-    saveBtn.addEventListener('click', async () => {
-      await saveTransaction(event); // Chama a função de salvar transação
-      document.querySelector('#id').value = ''; // Limpa os campos após salvar
-      document.querySelector('#name').value = '';
-      document.querySelector('#amount').value = '';
-      editBtn.parentElement.removeChild(saveBtn); // Remove o botão de salvar
-    });
-    
-    // Adiciona o botão de salvar ao mesmo container do botão de editar
-    editBtn.parentElement.appendChild(saveBtn);
-  });
+  })
   return editBtn
 }
 
@@ -143,6 +129,7 @@ async function saveTransaction(ev) {
     transactions.splice(indexToRemove, 1, transaction) // O splice permite remover o antigo e incluir o novo !
     document.querySelector(`#transaction-${id}`).remove() // removendo o container pelo id !
     renderTransaction(transaction)
+    return;  // Retorna aqui para sair da função após editar a transação
 
   } else {
     // Quando não tiver o id, ele vai criar uma nova transação
