@@ -43,7 +43,7 @@ function renderTransaction(transaction) {
 }
 
 async function fetchTransactions() {
-  return await fetch('http://localhost:3000/transactions').then(res => res.json())
+  return await fetch('https://api-storage.vercel.app/transactions').then(res => res.json())
 }
 
 let transactions = []
@@ -115,7 +115,7 @@ async function saveTransaction(ev) {
 
   if (id) {
     // Quando tiver o id, ele irá editar essa transação !
-    const response = await fetch(`http://localhost:3000/transactions/${id}`, {
+    const response = await fetch(`https://api-storage.vercel.app/transactions/${id}`, {
       method: 'PUT',
       body: JSON.stringify({ name, amount }),
       headers: {
@@ -132,7 +132,7 @@ async function saveTransaction(ev) {
 
   } else {
     // Quando não tiver o id, ele vai criar uma nova transação
-    const response = await fetch('http://localhost:3000/transactions', {
+    const response = await fetch('https://api-storage.vercel.app/transactions', {
       method: 'POST',
       body: JSON.stringify({ name, amount }),
       headers: {
@@ -155,7 +155,7 @@ function createDeleteTransactionButton(id) {
   deleteBtn.classList.add('delete-btn')
   deleteBtn.textContent = 'Excluir'
   deleteBtn.addEventListener('click', async () => {
-    await fetch(`http://localhost:3000/transactions/${id}`, { method: 'DELETE' }) // Acho que deleta do banco de dados, no caso o db.json !
+    await fetch(`https://api-storage.vercel.app/transactions/${id}`, { method: 'DELETE' }) // Acho que deleta do banco de dados, no caso o db.json !
     deleteBtn.parentElement.remove() // Vai excluir o container/div da tela (o container é o parente) !
     const indexToRemove = transactions.findIndex((t) => t.id === id) // Pega o índice no array de transactions do elemento a ser excluído !
     transactions.splice(indexToRemove, 1) // Exclui um elemento desse array
