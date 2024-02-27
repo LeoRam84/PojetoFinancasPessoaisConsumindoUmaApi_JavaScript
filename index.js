@@ -173,7 +173,7 @@ async function setup() {
 }
 
 function startAutoRefresh() {
-  setInterval(renderTransactions, 5000); // Renderiza as transações a cada 5 segundos
+  setInterval(renderTransactions, 1000); // Renderiza as transações a cada 5 segundos
 }
 
 async function renderTransactions() {
