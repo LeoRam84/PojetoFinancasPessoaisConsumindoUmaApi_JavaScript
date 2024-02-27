@@ -113,11 +113,7 @@ button + button {
   background-color: #f64348;
 }
 
-.edit-btn:hover {
-  cursor: pointer;
-  filter: brightness(0.9);
-}
-
+.edit-btn:hover,
 .delete-btn:hover {
   cursor: pointer;
   filter: brightness(0.9);
