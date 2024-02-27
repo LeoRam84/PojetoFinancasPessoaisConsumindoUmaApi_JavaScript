@@ -1,3 +1,4 @@
+// Antigo arquivo db.json para funcionamento local. //
 {
   "transactions": [
     {
