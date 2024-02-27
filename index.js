@@ -102,7 +102,16 @@ function createEditTransactionBtn(transaction) {
     document.querySelector('#id').value = transaction.id
     document.querySelector('#name').value = transaction.name
     document.querySelector('#amount').value = transaction.amount
-  })
+
+    // Remova os event listeners existentes no formulário antes de adicionar um novo
+    document.querySelector('form').removeEventListener('submit', saveTransaction);
+
+    // Adicione um novo event listener para atualizar a transação após a edição
+    document.querySelector('form').addEventListener('submit', async (ev) => {
+      await saveTransaction(ev);
+      document.querySelector('form').addEventListener('submit', saveTransaction);
+    });
+  });
   return editBtn
 }
 
