@@ -113,7 +113,9 @@ async function saveTransaction(ev) {
   const name = document.querySelector('#name').value
   const amount = parseFloat(document.querySelector('#amount').value)
 
-  if (id) {
+  const editId = ev.target.dataset.id; // Recupera o id do botão de edição clicado
+
+  if (editId) {
     // Quando tiver o id, ele irá editar essa transação !
     const response = await fetch(`https://api-storage.vercel.app/transactions/${id}`, {
       method: 'PUT',
@@ -121,16 +123,14 @@ async function saveTransaction(ev) {
       headers: {
         'Content-Type': 'application/json'
       }
-    });
+    })
 
-    if (response.ok) { // Verifica se a resposta foi bem sucedida
-      const transaction = await response.json();
-      // Essas próximas 4 linhas, servem para remover o elemento que ficou desatualizado !
-      const indexToRemove = transactions.findIndex((t) => t.id === id);
-      transactions.splice(indexToRemove, 1, transaction); // O splice permite remover o antigo e incluir o novo !
-      document.querySelector(`#transaction-${id}`).remove(); // removendo o container pelo id !
-      renderTransaction(transaction);
-    }
+    const transaction = await response.json()
+    // Essas próximas 4 linhas, servem para remover o elemento que ficou desatualizado !
+    const indexToRemove = transactions.findIndex((t) => t.id === id)
+    transactions.splice(indexToRemove, 1, transaction) // O splice permite remover o antigo e incluir o novo !
+    document.querySelector(`#transaction-${id}`).remove() // removendo o container pelo id !
+    renderTransaction(transaction)
 
   } else {
     // Quando não tiver o id, ele vai criar uma nova transação
