@@ -130,9 +130,6 @@ async function saveTransaction(ev) {
     document.querySelector(`#transaction-${id}`).remove() // removendo o container pelo id !
     renderTransaction(transaction)
 
-    // Limpar o ID no backend
-    await clearTransactionId(id);
-
   } else {
     // Quando não tiver o id, ele vai criar uma nova transação
     const response = await fetch('https://api-storage.vercel.app/transactions', {
