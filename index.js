@@ -112,12 +112,27 @@ async function saveTransaction(ev) {
   const id = document.querySelector('#id').value
   const name = document.querySelector('#name').value
   const amount = parseFloat(document.querySelector('#amount').value)
+  const newName = name.value;
+  const newAmount = parseFloat(amount.value);
+
+  let nameChanged = false;
+  let amountChanged = false;
+
+  // Verifica se houve alteração no nome
+  if (newName !== name.defaultValue) {
+    nameChanged = true;
+  }
+
+   // Verifica se houve alteração no valor
+  if (newAmount !== parseFloat(amount.defaultValue)) {
+    amountChanged = true;
+  }
 
   if (id) {
     // Quando tiver o id, ele irá editar essa transação !
     const response = await fetch(`https://api-storage.vercel.app/transactions/${id}`, {
       method: 'PUT',
-      body: JSON.stringify({ name, amount, id }),
+      body: JSON.stringify({ name, amount }),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -130,11 +145,11 @@ async function saveTransaction(ev) {
     document.querySelector(`#transaction-${id}`).remove() // removendo o container pelo id !
     renderTransaction(transaction)
 
-  } else {
-    // Quando não tiver o id, ele vai criar uma nova transação
+  } else if (nameChanged || amountChanged) {
+    // Quando não tiver o id e houver mudanças no nome ou no valor, cria uma nova transação !
     const response = await fetch('https://api-storage.vercel.app/transactions', {
       method: 'POST',
-      body: JSON.stringify({ name, amount, id }),
+      body: JSON.stringify({ name, amount }),
       headers: {
         'Content-Type': 'application/json'
       }
