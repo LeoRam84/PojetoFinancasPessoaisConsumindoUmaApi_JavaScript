@@ -127,7 +127,10 @@ async function saveTransaction(ev) {
 
     // Essas próximas 4 linhas, servem para remover o elemento que ficou desatualizado !
     const indexToRemove = transactions.findIndex((t) => t.id === id)
-    transactions.splice(indexToRemove, 1, editedTransaction) // O splice permite remover o antigo e incluir o novo !
+
+    if (indexToReplace !== -1) {
+      transactions.splice(indexToRemove, 1, editedTransaction) // O splice permite remover o antigo e incluir o novo !
+    }
     document.querySelector(`#transaction-${id}`).remove() // removendo o container pelo id !
     renderTransaction(editedTransaction)
 
