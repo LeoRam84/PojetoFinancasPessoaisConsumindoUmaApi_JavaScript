@@ -167,22 +167,22 @@ function createDeleteTransactionButton(id) {
 
 // Código criado para rodar melhor na vercel, com um refresh de página melhor:
 
-// async function setup() {
-//   await renderTransactions();
-//   startAutoRefresh(); // Inicia a atualização automática
-// }
+async function setup() {
+  await renderTransactions();
+  startAutoRefresh(); // Inicia a atualização automática
+}
 
-// function startAutoRefresh() {
-//   setInterval(renderTransactions, 500); // Renderiza as transações a cada 5 segundos
-// }
+function startAutoRefresh() {
+  setInterval(renderTransactions, 500); // Renderiza as transações a cada 5 segundos
+}
 
-// async function renderTransactions() {
-//   const results = await fetchTransactions();
-//   transactions = results;
-//   document.querySelector('#transactions').innerHTML = ''; // Limpa o conteúdo antes de renderizar novamente
-//   transactions.forEach(renderTransaction);
-//   updateBalance();
-// }
+async function renderTransactions() {
+  const results = await fetchTransactions();
+  transactions = results;
+  document.querySelector('#transactions').innerHTML = ''; // Limpa o conteúdo antes de renderizar novamente
+  transactions.forEach(renderTransaction);
+  updateBalance();
+}
 
 /* Código criado para rodar melhor na vercel, com armazenamento temporário em cache para desafogar
 o servidor: */
