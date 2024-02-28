@@ -117,7 +117,7 @@ async function saveTransaction(ev) {
     // Quando tiver o id, ele irá editar essa transação !
     const response = await fetch(`https://api-storage.vercel.app/transactions/${id}`, {
       method: 'PUT',
-      body: JSON.stringify({ name, amount }),
+      body: JSON.stringify({ name, amount, id }),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -134,7 +134,7 @@ async function saveTransaction(ev) {
     // Quando não tiver o id, ele vai criar uma nova transação
     const response = await fetch('https://api-storage.vercel.app/transactions', {
       method: 'POST',
-      body: JSON.stringify({ name, amount }),
+      body: JSON.stringify({ name, amount, id }),
       headers: {
         'Content-Type': 'application/json'
       }
