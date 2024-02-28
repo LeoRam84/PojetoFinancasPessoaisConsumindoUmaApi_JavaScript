@@ -123,15 +123,13 @@ async function saveTransaction(ev) {
       }
     })
 
-    const transaction = await response.json()
+    const editedTransaction = await response.json()
+
     // Essas próximas 4 linhas, servem para remover o elemento que ficou desatualizado !
     const indexToRemove = transactions.findIndex((t) => t.id === id)
-    transactions.splice(indexToRemove, 1, transaction) // O splice permite remover o antigo e incluir o novo !
+    transactions.splice(indexToRemove, 1, editedTransaction) // O splice permite remover o antigo e incluir o novo !
     document.querySelector(`#transaction-${id}`).remove() // removendo o container pelo id !
-    renderTransaction(transaction)
-
-    // Limpar o ID de edição após uma edição bem-sucedida
-    id = null;
+    renderTransaction(editedTransaction)
 
   } else {
     // Quando não tiver o id, ele vai criar uma nova transação
@@ -143,9 +141,9 @@ async function saveTransaction(ev) {
       }
     })
 
-    const transaction = await response.json()
-    transactions.push(transaction)
-    renderTransaction(transaction)
+    const newTransaction = await response.json()
+    transactions.push(newTransaction)
+    renderTransaction(newTransaction)
     // console.log(transactions) // Pode retirar esse console.log, mas eu deixei para ver no console, funciona apenas quando não tiver o id (editando), ou seja, criando uma transação nova !
   }
 
